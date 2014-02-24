@@ -9,6 +9,7 @@ before_script:
   - cd stockfish-dd-src/src
   - make build ARCH=x86-64
   - cp stockfish ../..
+  - cd ../..
 
 before_install:
   - go get code.google.com/p/go.tools/cmd/cover
