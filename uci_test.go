@@ -1,7 +1,6 @@
 package uci
 
 import (
-	"fmt"
 	"testing"
 	. "launchpad.net/gocheck"
 )
@@ -12,6 +11,9 @@ type UCISuite struct{}
 
 var _ = Suite(&UCISuite{})
 
+// these are somewhat fragile and depend on having stockfish in the folder
+// geared toward CI
+
 func (s *UCISuite) TestUCIDepth4(c *C) {
 	eng, err := NewEngine("./stockfish")
 	c.Assert(err, IsNil)
@@ -19,7 +21,6 @@ func (s *UCISuite) TestUCIDepth4(c *C) {
 	res, err := eng.GoDepth(4)
 	c.Assert(err, IsNil)
 	c.Assert(res.BestMove, Equals, "c8d7")
-	fmt.Println(res)
 }
 
 func (s *UCISuite) TestUCIDepth15(c *C) {
@@ -29,5 +30,4 @@ func (s *UCISuite) TestUCIDepth15(c *C) {
 	res, err := eng.GoDepth(15)
 	c.Assert(err, IsNil)
 	c.Assert(res.BestMove, Equals, "b5c6")
-	fmt.Println(res)
 }
