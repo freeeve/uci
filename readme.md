@@ -1,6 +1,7 @@
 # uci 
 
 [![Build Status](https://travis-ci.org/wfreeman/uci.png?branch=master)](https://travis-ci.org/wfreeman/uci)
+[![Coverage Status](https://coveralls.io/repos/wfreeman/uci/badge.png)](https://coveralls.io/r/wfreeman/uci)
 
 A golang API to interact with UCI chess engines. (should be considered experimental for the time being)
 
