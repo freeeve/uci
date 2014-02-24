@@ -4,6 +4,11 @@ go:
   
 before_script:
   - go get launchpad.net/gocheck
+  - wget https://s3.amazonaws.com/stockfish/stockfish-dd-src.zip
+  - unzip stockfish-dd-src.zip
+  - cd stockfish-dd-src/src
+  - make build ARCH=x86-64
+  - cp stockfish ../..
 
 before_install:
   - go get code.google.com/p/go.tools/cmd/cover
