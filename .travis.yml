@@ -1,0 +1,15 @@
+language: go
+go: 
+  - 1.2
+  
+before_script:
+  - go get launchpad.net/gocheck
+
+before_install:
+  - go get code.google.com/p/go.tools/cmd/cover
+  
+script:
+  - go get github.com/axw/gocov/gocov
+  - go get github.com/mattn/goveralls
+  - export PATH=$PATH:$HOME/gopath/bin/
+  - goveralls -repotoken mS6XFaVRxtql39jFpQthGwGupXkq5ZJwZ
