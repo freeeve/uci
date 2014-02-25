@@ -1,7 +1,6 @@
 package uci
 
 import (
-	"log"
 	"testing"
 	. "launchpad.net/gocheck"
 )
@@ -25,7 +24,6 @@ func (s *UCISuite) TestUCIDepth10MultiPV(c *C) {
 	c.Assert(err, IsNil)
 	c.Assert(res.BestMove, Equals, "c8d7")
 	c.Assert(len(res.Results), Equals, 4)
-	log.Println(res)
 }
 
 func (s *UCISuite) TestUCIDepth19(c *C) {

@@ -111,6 +111,12 @@ func (eng *Engine) SetOptions(opt Options) error {
 			return err
 		}
 	}
+	if opt.Threads > 0 {
+		err = eng.sendOption("threads", opt.Threads)
+		if err != nil {
+			return err
+		}
+	}
 	err = eng.sendOption("ownbook", opt.OwnBook)
 	if err != nil {
 		return err
