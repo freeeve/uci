@@ -31,7 +31,8 @@ func (s *UCISuite) TestUCIDepth19(c *C) {
 	c.Assert(err, IsNil)
 	eng.SetOptions(Options{Threads: 2})
 	eng.SetFEN("r1b1k1nr/ppq2pbp/2n1p1p1/1B2pN2/5P2/2N1B3/PPP3PP/R2QK2R w KQkq - 2 11")
-	res, err := eng.GoDepth(19)
+	resultOpts := IncludeUpperbounds | IncludeLowerbounds
+	res, err := eng.GoDepth(19, resultOpts)
 	c.Assert(err, IsNil)
 	c.Assert(res.BestMove, Equals, "b5c6")
 }
