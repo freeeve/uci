@@ -7,6 +7,8 @@ A golang API to interact with UCI chess engines. (should be considered experimen
 
 Many chess engines support UCI (Universal Chess Interface). This library is designed for use with Stockfish, but should work with other UCI engines.
 
+[Godoc for UCI](http://godoc.org/github.com/wfreeman/uci)
+
 ## minimum viable snippet
 ```Go
 package main
