@@ -51,11 +51,11 @@ produces this output:
   "BestMove": "c8d7",
   "Results": [
     {
-      "Time": 0,
+      "Time": 136,
       "Depth": 10,
-      "SelDepth": 131,
+      "SelDepth": 16,
       "Nodes": 183853,
-      "NodesPerSecond": 1403458,
+      "NodesPerSecond": 1351860,
       "MultiPV": 1,
       "Lowerbound": false,
       "Upperbound": false,
@@ -76,11 +76,11 @@ produces this output:
       ]
     },
     {
-      "Time": 0,
+      "Time": 136,
       "Depth": 10,
-      "SelDepth": 131,
+      "SelDepth": 16,
       "Nodes": 183853,
-      "NodesPerSecond": 1403458,
+      "NodesPerSecond": 1351860,
       "MultiPV": 2,
       "Lowerbound": false,
       "Upperbound": false,
@@ -100,11 +100,11 @@ produces this output:
       ]
     },
     {
-      "Time": 0,
+      "Time": 136,
       "Depth": 10,
-      "SelDepth": 131,
+      "SelDepth": 16,
       "Nodes": 183853,
-      "NodesPerSecond": 1403458,
+      "NodesPerSecond": 1351860,
       "MultiPV": 3,
       "Lowerbound": false,
       "Upperbound": false,
@@ -125,11 +125,11 @@ produces this output:
       ]
     },
     {
-      "Time": 0,
+      "Time": 136,
       "Depth": 10,
-      "SelDepth": 131,
+      "SelDepth": 16,
       "Nodes": 183853,
-      "NodesPerSecond": 1403458,
+      "NodesPerSecond": 1351860,
       "MultiPV": 4,
       "Lowerbound": false,
       "Upperbound": false,

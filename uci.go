@@ -2,6 +2,7 @@ package uci
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os/exec"
 	"sort"
@@ -57,6 +58,11 @@ type Results struct {
 	BestMove string
 	results  map[scoreKey]ScoreResult
 	Results  []ScoreResult
+}
+
+func (r Results) String() string {
+	b, _ := json.MarshalIndent(r, "", "  ")
+	return fmt.Sprintln(string(b))
 }
 
 // Engine holds the information needed to communicate with
@@ -234,7 +240,7 @@ func (res *Results) addLineToResults(line string) error {
 			}
 		case "time":
 			s.Scan()
-			r.SelDepth, err = strconv.Atoi(s.TokenText())
+			r.Time, err = strconv.Atoi(s.TokenText())
 			if err != nil {
 				return err
 			}
