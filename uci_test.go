@@ -18,7 +18,7 @@ func (s *UCISuite) TestUCIDepth10MultiPV(c *C) {
 	eng, err := NewEngine("./stockfish")
 	c.Assert(err, IsNil)
 	eng.SetFEN("rnb4r/ppp1k1pp/3bp3/1N3p2/1P2n3/P3BN2/2P1PPPP/R3KB1R b KQ - 4 11")
-	eng.SetOptions(Options{MultiPV: 4})
+	eng.SetOptions(Options{MultiPV: 4, Threads: 2})
 	resultOpts := HighestDepthOnly | IncludeUpperbounds | IncludeLowerbounds
 	res, err := eng.GoDepth(10, resultOpts)
 	c.Assert(err, IsNil)
@@ -29,6 +29,7 @@ func (s *UCISuite) TestUCIDepth10MultiPV(c *C) {
 func (s *UCISuite) TestUCIDepth19(c *C) {
 	eng, err := NewEngine("./stockfish")
 	c.Assert(err, IsNil)
+	eng.SetOptions(Options{Threads: 2})
 	eng.SetFEN("r1b1k1nr/ppq2pbp/2n1p1p1/1B2pN2/5P2/2N1B3/PPP3PP/R2QK2R w KQkq - 2 11")
 	res, err := eng.GoDepth(19)
 	c.Assert(err, IsNil)
