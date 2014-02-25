@@ -10,19 +10,24 @@ import (
 	"text/scanner"
 )
 
+// constants for result filtering
 const (
-	HighestDepthOnly   uint = 1 << iota
-	IncludeUpperbounds uint = 1 << iota
-	IncludeLowerbounds uint = 1 << iota
+	HighestDepthOnly   uint = 1 << iota // only return the highest depth results
+	IncludeUpperbounds uint = 1 << iota // include upperbound results
+	IncludeLowerbounds uint = 1 << iota // include lowerbound results
 )
 
+// Options, for initializing the chess engine
 type Options struct {
-	MultiPV int
-	Hash    int
-	Ponder  bool
-	OwnBook bool
+	MultiPV int  // number of principal variations (ranks top X moves)
+	Hash    int  // hash size in MB
+	Ponder  bool // whether the engine should ponder
+	OwnBook bool // whether the engine should use its opening book
+	Threads int  // max number of threads the engine should use
 }
 
+// scoreKey helps us save the latest unique result where unique is
+// defined as having unique values for each of the fields
 type scoreKey struct {
 	Depth      int
 	MultiPV    int
@@ -30,32 +35,41 @@ type scoreKey struct {
 	Lowerbound bool
 }
 
+// ScoreResult holds the score result records returned
+// by the engine
 type ScoreResult struct {
-	Time           int  // time spent to get this result (ms)
-	Depth          int  // depth (number of plies) of result record
-	SelDepth       int  // selective depth -- some engines don't report this
-	Nodes          int  // total nodes searched to get this result
-	NodesPerSecond int  // current nodes per second rate
-	MultiPV        int  // 0 if MultiPV not set
-	Lowerbound     bool // true if reported as lowerbound
-	Upperbound     bool // true if reported as upperbound
-	Score          int  // score centipawns or mate in X if Mate is true
-	Mate           bool
+	Time           int      // time spent to get this result (ms)
+	Depth          int      // depth (number of plies) of result record
+	SelDepth       int      // selective depth -- some engines don't report this
+	Nodes          int      // total nodes searched to get this result
+	NodesPerSecond int      // current nodes per second rate
+	MultiPV        int      // 0 if MultiPV not set
+	Lowerbound     bool     // true if reported as lowerbound
+	Upperbound     bool     // true if reported as upperbound
+	Score          int      // score centipawns or mate in X if Mate is true
+	Mate           bool     // whether this move results in forced mate
 	BestMoves      []string // best line for this result
 }
 
+// Results holds a slice of ScoreResult records
+// as well as some overall result data
 type Results struct {
 	BestMove string
 	results  map[scoreKey]ScoreResult
 	Results  []ScoreResult
 }
 
+// Engine holds the information needed to communicate with
+// a chess engine executable. Engines should be created with
+// a call to NewEngine(/path/to/executable)
 type Engine struct {
 	cmd    *exec.Cmd
 	stdout *bufio.Reader
 	stdin  *bufio.Writer
 }
 
+// NewEngine returns an Engine it has spun up
+// and connected communication to
 func NewEngine(path string) (*Engine, error) {
 	eng := Engine{}
 	eng.cmd = exec.Command(path)
@@ -75,6 +89,8 @@ func NewEngine(path string) (*Engine, error) {
 	return &eng, nil
 }
 
+// SetOptions sends setoption commands to the Engine
+// for the values set in the Options record passed in
 func (eng *Engine) SetOptions(opt Options) error {
 	var err error
 	if opt.MultiPV > 0 {
@@ -109,6 +125,7 @@ func (eng *Engine) sendOption(name string, value interface{}) error {
 	return err
 }
 
+// SetFEN takes a FEN string and tells the engine to set the position
 func (eng *Engine) SetFEN(fen string) error {
 	_, err := eng.stdin.WriteString(fmt.Sprintf("position fen %s\n", fen))
 	if err != nil {
@@ -118,6 +135,8 @@ func (eng *Engine) SetFEN(fen string) error {
 	return err
 }
 
+// GoDepth takes a depth and an optional uint flag that configures filters
+// for the results being returned.
 func (eng *Engine) GoDepth(depth int, resultOpts ...uint) (*Results, error) {
 	res := Results{}
 	resultOpt := uint(0)
@@ -164,15 +183,15 @@ func (eng *Engine) GoDepth(depth int, resultOpts ...uint) (*Results, error) {
 		}
 		res.Results = append(res.Results, v)
 	}
-	sort.Sort(ByDepth(res.Results))
+	sort.Sort(byDepth(res.Results))
 	return &res, nil
 }
 
-type ByDepth []ScoreResult
+type byDepth []ScoreResult
 
-func (a ByDepth) Len() int      { return len(a) }
-func (a ByDepth) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-func (a ByDepth) Less(i, j int) bool {
+func (a byDepth) Len() int      { return len(a) }
+func (a byDepth) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a byDepth) Less(i, j int) bool {
 	if a[i].Depth == a[j].Depth {
 		if a[i].MultiPV == a[j].MultiPV {
 			if a[i].Lowerbound == a[j].Lowerbound {
@@ -196,7 +215,6 @@ func (res *Results) addLineToResults(line string) error {
 	s.Init(rd)
 	s.Mode = scanner.ScanIdents | scanner.ScanChars | scanner.ScanInts
 	r := ScoreResult{}
-	// info depth 30 seldepth 43 score cp 22 lowerbound nodes 2784933165 nps 868955 time 3204920 multipv 3 pv e2e4 e7e6 d2d4 d7d5 e4e5
 	for s.Scan() != scanner.EOF {
 		switch s.TokenText() {
 		case "info":

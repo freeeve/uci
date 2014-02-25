@@ -23,13 +23,14 @@ func (s *UCISuite) TestUCIDepth4(c *C) {
 	res, err := eng.GoDepth(10, resultOpts)
 	c.Assert(err, IsNil)
 	c.Assert(res.BestMove, Equals, "c8d7")
+	c.Assert(len(res.Results), Equals, 4)
 }
 
 func (s *UCISuite) TestUCIDepth15(c *C) {
 	eng, err := NewEngine("./stockfish")
 	c.Assert(err, IsNil)
 	eng.SetFEN("r1b1k1nr/ppq2pbp/2n1p1p1/1B2pN2/5P2/2N1B3/PPP3PP/R2QK2R w KQkq - 2 11")
-	res, err := eng.GoDepth(15)
+	res, err := eng.GoDepth(19)
 	c.Assert(err, IsNil)
 	c.Assert(res.BestMove, Equals, "b5c6")
 }
