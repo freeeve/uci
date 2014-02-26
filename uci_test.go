@@ -14,6 +14,11 @@ var _ = Suite(&UCISuite{})
 // these are somewhat fragile and depend on having stockfish in the folder
 // geared toward CI
 
+func (s *UCISuite) TestUCIBadEnginePath(c *C) {
+	_, err := NewEngine("/bad/path/to/engine")
+	c.Assert(err.Error(), DeepEquals, "exec: \"/bad/path/to/engine\": stat /bad/path/to/engine: no such file or directory")
+}
+
 func (s *UCISuite) TestUCIDepth10MultiPV(c *C) {
 	eng, err := NewEngine("./stockfish")
 	c.Assert(err, IsNil)

@@ -40,9 +40,8 @@ func main() {
 	resultOpts := uci.HighestDepthOnly | uci.IncludeUpperbounds | uci.IncludeLowerbounds
 	results := eng.GoDepth(10, resultOpts)
 
-	// print it as JSON (just so we can see what the struct looks like)
-	b, _ := json.MarshalIndent(results, "", "  ")
-	fmt.Println(string(b))
+	// print it (String() goes to pretty JSON for now)
+	fmt.Println(results)
 }
 ```
 
