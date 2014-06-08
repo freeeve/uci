@@ -325,5 +325,4 @@ func (eng *Engine) Close() {
 		log.Println("failed to kill engine:", err)
 	}
 	eng.cmd.Wait()
-	log.Println("engine shut down...")
 }
