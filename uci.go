@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os/exec"
 	"sort"
 	"strconv"
@@ -311,4 +312,18 @@ func (res *Results) addLineToResults(line string) error {
 		}] = r
 	}
 	return nil
+}
+
+func (eng *Engine) Close() {
+	_, err := eng.stdin.WriteString("stop\n")
+	if err != nil {
+		log.Println("failed to stop engine:", err)
+	}
+	eng.stdin.Flush()
+	err = eng.cmd.Process.Kill()
+	if err != nil {
+		log.Println("failed to kill engine:", err)
+	}
+	eng.cmd.Wait()
+	log.Println("engine shut down...")
 }
