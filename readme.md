@@ -1,13 +1,13 @@
 # uci 
 
-[![Build Status](https://travis-ci.org/wfreeman/uci.png?branch=master)](https://travis-ci.org/wfreeman/uci)
-[![Coverage Status](https://coveralls.io/repos/wfreeman/uci/badge.png)](https://coveralls.io/r/wfreeman/uci)
+[![Build Status](https://travis-ci.org/freeeve/uci.png?branch=master)](https://travis-ci.org/freeeve/uci)
+[![Coverage Status](https://coveralls.io/repos/freeeve/uci/badge.png)](https://coveralls.io/r/freeeve/uci)
 
 A golang API to interact with UCI chess engines. (should be considered experimental for the time being) [A description of how UCI works is available here.](http://wbec-ridderkerk.nl/html/UCIProtocol.html)
 
 Many chess engines support UCI (Universal Chess Interface). This library is designed for use with Stockfish, but should work with other UCI engines.
 
-[Godoc for UCI](http://godoc.org/github.com/wfreeman/uci)
+[Godoc for UCI](http://godoc.org/github.com/freeeve/uci)
 
 ## minimum viable snippet
 ```Go
