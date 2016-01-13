@@ -16,7 +16,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"github.com/wfreeman/uci"
+	"gopkg.in/freeeve/uci.v1"
 )
 
 func main() {
