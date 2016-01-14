@@ -4,9 +4,9 @@ go:
   
 before_script:
   - go get launchpad.net/gocheck
-  - wget https://s3.amazonaws.com/stockfish/stockfish-dd-src.zip
-  - unzip stockfish-dd-src.zip
-  - cd stockfish-dd-src/src
+  - wget https://s3.amazonaws.com/stockfish/stockfish-7-src.zip
+  - unzip stockfish-7-src.zip
+  - cd stockfish-7-src/src
   - make build ARCH=x86-64
   - cp stockfish ../..
   - cd ../..
