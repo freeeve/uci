@@ -1,6 +1,6 @@
 language: go
 go: 
-  - 1.2
+  - 1.5
   
 before_script:
   - go get launchpad.net/gocheck
