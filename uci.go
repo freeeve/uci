@@ -148,15 +148,29 @@ func (eng *Engine) SetFEN(fen string) error {
 	return err
 }
 
-// GoDepth takes a depth and an optional uint flag that configures filters
-// for the results being returned.
-func (eng *Engine) GoDepth(depth int, resultOpts ...uint) (*Results, error) {
+// Go can use search moves, depth and time to move as filter  for the results being returned.
+// see http://wbec-ridderkerk.nl/html/UCIProtocol.html
+func (eng *Engine) Go(depth int, searchmoves string, movetime int64, resultOpts ...uint) (*Results, error) {
 	res := Results{}
 	resultOpt := uint(0)
 	if len(resultOpts) == 1 {
 		resultOpt = resultOpts[0]
 	}
-	_, err := eng.stdin.WriteString(fmt.Sprintf("go depth %d\n", depth))
+	goCmd := "go "
+
+	if depth != 0 {
+		goCmd += fmt.Sprintf("depth %d", depth)
+	}
+	if searchmoves != "" {
+		goCmd += fmt.Sprintf(" searchmoves %s", searchmoves)
+	}
+	if movetime != 0 {
+		goCmd += fmt.Sprintf(" movetime %d", movetime)
+	}
+	goCmd += "\n"
+	fmt.Println(goCmd)
+	_, err := eng.stdin.WriteString(goCmd)
+
 	if err != nil {
 		return nil, err
 	}
@@ -198,6 +212,12 @@ func (eng *Engine) GoDepth(depth int, resultOpts ...uint) (*Results, error) {
 	}
 	sort.Sort(byDepth(res.Results))
 	return &res, nil
+}
+
+// GoDepth takes a depth and an optional uint flag that configures filters
+// for the results being returned.
+func (eng *Engine) GoDepth(depth int, resultOpts ...uint) (*Results, error) {
+	return eng.Go(depth, "", 0, resultOpts...)
 }
 
 type byDepth []ScoreResult

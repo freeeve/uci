@@ -1,9 +1,9 @@
 language: go
-go: 
-  - 1.5
-  
+go:
+  - 1.6
+
 before_script:
-  - go get launchpad.net/gocheck
+  - go get github.com/go-check/check
   - wget https://s3.amazonaws.com/stockfish/stockfish-7-src.zip
   - unzip stockfish-7-src.zip
   - cd stockfish-7-src/src
@@ -12,8 +12,8 @@ before_script:
   - cd ../..
 
 before_install:
-  - go get code.google.com/p/go.tools/cmd/cover
-  
+  - go get golang.org/x/tools/cmd/cover
+
 script:
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
