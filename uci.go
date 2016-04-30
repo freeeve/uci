@@ -168,7 +168,6 @@ func (eng *Engine) Go(depth int, searchmoves string, movetime int64, resultOpts 
 		goCmd += fmt.Sprintf(" movetime %d", movetime)
 	}
 	goCmd += "\n"
-	fmt.Println(goCmd)
 	_, err := eng.stdin.WriteString(goCmd)
 
 	if err != nil {
