@@ -38,7 +38,7 @@ func main() {
 	
 	// set some result filter options
 	resultOpts := uci.HighestDepthOnly | uci.IncludeUpperbounds | uci.IncludeLowerbounds
-	results := eng.GoDepth(10, resultOpts)
+	results, _ := eng.GoDepth(10, resultOpts)
 
 	// print it (String() goes to pretty JSON for now)
 	fmt.Println(results)
