@@ -17,7 +17,7 @@ var _ = Suite(&UCISuite{})
 
 func (s *UCISuite) TestUCIBadEnginePath(c *C) {
 	_, err := NewEngine("/bad/path/to/engine")
-	c.Assert(err.Error(), DeepEquals, "exec: \"/bad/path/to/engine\": file does not exist")
+	c.Assert(err.Error(), DeepEquals, "fork/exec /bad/path/to/engine: no such file or directory")
 }
 
 func (s *UCISuite) TestUCIDepth10MultiPV(c *C) {
