@@ -2,7 +2,8 @@ package uci
 
 import (
 	"testing"
-	. "launchpad.net/gocheck"
+
+	. "github.com/go-check/check"
 )
 
 func Test(t *testing.T) { TestingT(t) }
@@ -16,7 +17,7 @@ var _ = Suite(&UCISuite{})
 
 func (s *UCISuite) TestUCIBadEnginePath(c *C) {
 	_, err := NewEngine("/bad/path/to/engine")
-	c.Assert(err.Error(), DeepEquals, "exec: \"/bad/path/to/engine\": stat /bad/path/to/engine: no such file or directory")
+	c.Assert(err.Error(), DeepEquals, "exec: \"/bad/path/to/engine\": file does not exist")
 }
 
 func (s *UCISuite) TestUCIDepth10MultiPV(c *C) {

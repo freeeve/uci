@@ -1,19 +1,17 @@
 language: go
-go: 
-  - 1.5
-  
+go:
+  - 1.6
+
 before_script:
-  - go get launchpad.net/gocheck
-  - wget https://s3.amazonaws.com/stockfish/stockfish-7-src.zip
-  - unzip stockfish-7-src.zip
-  - cd stockfish-7-src/src
-  - make build ARCH=x86-64
-  - cp stockfish ../..
-  - cd ../..
+  - go get github.com/go-check/check
+  - wget https://s3.amazonaws.com/stockfish/stockfish-7-linux.zip
+  - unzip stockfish-7-linux.zip
+  - cp "stockfish-7-linux/Linux/stockfish 7 x64" stockfish
+  - chmod +x stockfish
 
 before_install:
-  - go get code.google.com/p/go.tools/cmd/cover
-  
+  - go get golang.org/x/tools/cmd/cover
+
 script:
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
