@@ -148,6 +148,16 @@ func (eng *Engine) SetFEN(fen string) error {
 	return err
 }
 
+// makeMove takes a move in UCI format (e.g e2e4 e5e7...) and tells the engine to set the position
+func (eng *Engine) makeMove(move string) error{
+	_, err := eng.stdin.WriteString(fmt.Sprintf("position startpos moves %s\n", move))
+	if err != nil {
+		return err
+	}
+	err = eng.stdin.Flush()
+	return err
+}
+
 // Go can use search moves, depth and time to move as filter  for the results being returned.
 // see http://wbec-ridderkerk.nl/html/UCIProtocol.html
 func (eng *Engine) Go(depth int, searchmoves string, movetime int64, resultOpts ...uint) (*Results, error) {
