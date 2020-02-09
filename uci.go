@@ -148,9 +148,8 @@ func (eng *Engine) SetFEN(fen string) error {
 	return err
 }
 
-// makeMove takes a move in UCI format (e.g e2e4 e5e7...) and tells the engine to set the position
-func (eng *Engine) makeMove(move string) error{
-	_, err := eng.stdin.WriteString(fmt.Sprintf("position startpos moves %s\n", move))
+func (eng *Engine) SetMoves(moves string) error {
+	_, err := eng.stdin.WriteString(fmt.Sprintf("position startpos moves %s\n", moves))
 	if err != nil {
 		return err
 	}

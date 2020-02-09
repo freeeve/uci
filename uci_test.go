@@ -3,7 +3,7 @@ package uci
 import (
 	"testing"
 
-	. "github.com/go-check/check"
+	. "gopkg.in/check.v1"
 )
 
 func Test(t *testing.T) { TestingT(t) }
@@ -21,6 +21,7 @@ func (s *UCISuite) TestUCIBadEnginePath(c *C) {
 }
 
 func (s *UCISuite) TestUCIDepth10MultiPV(c *C) {
+	var err error
 	eng, err := NewEngine("./stockfish")
 	c.Assert(err, IsNil)
 	eng.SetFEN("rnb4r/ppp1k1pp/3bp3/1N3p2/1P2n3/P3BN2/2P1PPPP/R3KB1R b KQ - 4 11")
