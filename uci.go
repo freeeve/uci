@@ -101,35 +101,36 @@ func NewEngine(path string) (*Engine, error) {
 func (eng *Engine) SetOptions(opt Options) error {
 	var err error
 	if opt.MultiPV > 0 {
-		err = eng.sendOption("multipv", opt.MultiPV)
+		err = eng.SendOption("multipv", opt.MultiPV)
 		if err != nil {
 			return err
 		}
 	}
 	if opt.Hash > 0 {
-		err = eng.sendOption("hash", opt.Hash)
+		err = eng.SendOption("hash", opt.Hash)
 		if err != nil {
 			return err
 		}
 	}
 	if opt.Threads > 0 {
-		err = eng.sendOption("threads", opt.Threads)
+		err = eng.SendOption("threads", opt.Threads)
 		if err != nil {
 			return err
 		}
 	}
-	err = eng.sendOption("ownbook", opt.OwnBook)
+	err = eng.SendOption("ownbook", opt.OwnBook)
 	if err != nil {
 		return err
 	}
-	err = eng.sendOption("ponder", opt.Ponder)
+	err = eng.SendOption("ponder", opt.Ponder)
 	if err != nil {
 		return err
 	}
 	return err
 }
 
-func (eng *Engine) sendOption(name string, value interface{}) error {
+// SendOption sends setoption command to the Engine
+func (eng *Engine) SendOption(name string, value interface{}) error {
 	_, err := eng.stdin.WriteString(fmt.Sprintf("setoption name %s value %v\n", name, value))
 	if err != nil {
 		return err
