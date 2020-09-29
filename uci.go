@@ -77,9 +77,9 @@ type Engine struct {
 
 // NewEngine returns an Engine it has spun up
 // and connected communication to
-func NewEngine(path string) (*Engine, error) {
+func NewEngine(path string, arg ...string) (*Engine, error) {
 	eng := Engine{}
-	eng.cmd = exec.Command(path)
+	eng.cmd = exec.Command(path, arg)
 	stdin, err := eng.cmd.StdinPipe()
 	if err != nil {
 		return nil, err
