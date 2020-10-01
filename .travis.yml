@@ -6,7 +6,7 @@ before_script:
   - go get github.com/go-check/check
   - wget https://s3.amazonaws.com/stockfish/stockfish-10-linux.zip
   - unzip stockfish-10-linux.zip
-  - cp "stockfish-10-linux/Linux/stockfish 10 x64" stockfish
+  - cp "stockfish-10-linux/Linux/stockfish_10_x64" stockfish
   - chmod +x stockfish
 
 before_install:
