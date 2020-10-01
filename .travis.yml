@@ -1,12 +1,12 @@
 language: go
 go:
-  - 1.11
+  - 1.13
 
 before_script:
   - go get github.com/go-check/check
-  - wget https://s3.amazonaws.com/stockfish/stockfish-7-linux.zip
-  - unzip stockfish-7-linux.zip
-  - cp "stockfish-7-linux/Linux/stockfish 7 x64" stockfish
+  - wget https://s3.amazonaws.com/stockfish/stockfish-10-linux.zip
+  - unzip stockfish-10-linux.zip
+  - cp "stockfish-10-linux/Linux/stockfish 10 x64" stockfish
   - chmod +x stockfish
 
 before_install:

@@ -79,7 +79,7 @@ type Engine struct {
 // and connected communication to
 func NewEngine(path string, arg ...string) (*Engine, error) {
 	eng := Engine{}
-	eng.cmd = exec.Command(path, arg)
+	eng.cmd = exec.Command(path, arg...)
 	stdin, err := eng.cmd.StdinPipe()
 	if err != nil {
 		return nil, err
