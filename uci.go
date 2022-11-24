@@ -96,6 +96,17 @@ func NewEngine(path string, arg ...string) (*Engine, error) {
 	return &eng, nil
 }
 
+// UCI sets the engine to uci mode
+func (eng *Engine) UCI() error {
+	_, err := eng.stdin.WriteString("uci\n")
+	if err != nil {
+		return err
+	}
+	err = eng.stdin.Flush()
+	return err
+
+}
+
 // SetOptions sends setoption commands to the Engine
 // for the values set in the Options record passed in
 func (eng *Engine) SetOptions(opt Options) error {
