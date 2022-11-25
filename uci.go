@@ -104,7 +104,6 @@ func (eng *Engine) UCI() error {
 	}
 	err = eng.stdin.Flush()
 	return err
-
 }
 
 // SetOptions sends setoption commands to the Engine
