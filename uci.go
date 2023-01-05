@@ -111,19 +111,19 @@ func (eng *Engine) UCI() error {
 func (eng *Engine) SetOptions(opt Options) error {
 	var err error
 	if opt.MultiPV > 0 {
-		err = eng.SendOption("multipv", opt.MultiPV)
+		err = eng.SendOption("MultiPV", opt.MultiPV)
 		if err != nil {
 			return err
 		}
 	}
 	if opt.Hash > 0 {
-		err = eng.SendOption("hash", opt.Hash)
+		err = eng.SendOption("Hash", opt.Hash)
 		if err != nil {
 			return err
 		}
 	}
 	if opt.Threads > 0 {
-		err = eng.SendOption("threads", opt.Threads)
+		err = eng.SendOption("Threads", opt.Threads)
 		if err != nil {
 			return err
 		}
@@ -286,7 +286,12 @@ func (res *Results) addLineToResults(line string) error {
 			}
 		case "time":
 			s.Scan()
-			r.Time, err = strconv.Atoi(s.TokenText())
+			token := s.TokenText()
+			if token == "-" {
+				s.Scan()
+				token = token + s.TokenText()
+			}
+			r.Time, err = strconv.Atoi(token)
 			if err != nil {
 				return err
 			}
